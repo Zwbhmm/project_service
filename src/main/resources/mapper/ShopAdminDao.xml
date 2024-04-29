@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.project.dao.shop.ShopAdminDao">
+
+    <!-- 管理员登陆方法，返回一个登录的管理员对象admin -->
+    <select id="login" parameterType="com.project.model.shopEntity.ShopAdmin" resultType="com.project.model.shopEntity.ShopAdmin">
+        select * from shopadmin where adminName = #{adminName}
+    </select>
+
+    <!-- 插入数据库,注册方法 -->
+    <insert id="adminRegister" parameterType="com.project.model.shopEntity.ShopAdmin">
+        insert into shopadmin(adminName, adminPassword) values (#{adminName}, #{adminPassword})
+    </insert>
+
+</mapper>

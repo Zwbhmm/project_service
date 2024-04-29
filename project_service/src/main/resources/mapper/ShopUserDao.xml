@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.project.dao.shop.ShopUserDao">
+
+    <!-- 登录方法 -->
+    <select id="login" parameterType="com.project.model.shopEntity.ShopUser" resultType="com.project.model.shopEntity.ShopUser">
+        select * from shopuser where username = #{username} and password = #{password}
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="findAll"  parameterType="com.project.model.shopEntity.ShopUser" resultType="com.project.model.shopEntity.ShopUser">
+        select * from shopuser
+    </select>
+
+    <!-- 获取总的用户数 -->
+    <select id="getAllUserCount" resultType="Integer">
+        select count(*) from shopuser
+    </select>
+
+    <!-- 查询账号是否已经存在 -->
+    <select id="isExist" parameterType="String" resultType="com.project.model.shopEntity.ShopUser">
+        select * from shopuser where username = #{username}
+    </select>
+
+    <!-- 根据用户id查询用户并返回 -->
+    <select id="getUserById" parameterType="Integer" resultType="com.project.model.shopEntity.ShopUser">
+        select * from shopuser where id = #{userid}
+    </select>
+
+    <!-- 新增用户 -->
+    <insert id="register" parameterType="com.project.model.shopEntity.ShopUser">
+        insert into shopuser(username,password,telephone,regTime,name) values(#{username},#{password},#{telephone},#{regTime},#{name})
+    </insert>
+
+    <!-- 根据用户id进行更新的操作 -->
+    <update id="updateUserById" parameterType="com.project.model.shopEntity.ShopUser">
+        update shopuser
+        set name = #{name},password = #{password},telephone = #{telephone},address = #{address}
+        where id = #{id}
+    </update>
+
+    <!-- 更新用户资料 -->
+    <update id="updateUserByUsername" parameterType="com.project.model.shopEntity.ShopUser">
+        update shopuser
+        set name = #{name},password = #{password},
+                    gexing = #{gexing},hobby = #{hobby},address = #{address}
+        where username = #{username}
+    </update>
+
+    <!-- 根据用户id进行删除 -->
+    <delete id="deleteByUserid" parameterType="Integer">
+        delete from shopuser where id = #{userid}
+    </delete>
+
+</mapper>

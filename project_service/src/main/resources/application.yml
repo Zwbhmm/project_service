@@ -1,0 +1,55 @@
+  server:
+  port: 8080
+  context-path: /project_service
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+    dev:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/project_service?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      username: root
+      password: root
+
+  #  # 整合Redis
+  #  redis:
+  #    database: 0
+  #    # 主机号
+  #    host:
+  #    # 密码
+  #    password:
+  #    # 端口号
+  #    port:
+  #    # 什么时候超时
+  #    timeout: 5000
+  #    jedis:
+  #      pool:
+  #        max-active: 1000
+  #        max-wait: -1
+  #        max-idle: 10
+  #        min-idle: 2
+  http:
+    multipart:
+      max-file-size: 100MB
+      maxRequestSize: 1000MB
+# 配置Mybatis的mapper文件扫描的路
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+#支付宝
+alipay:
+  appId: 9021000122693882
+  appPrivateKey: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDG+qavsgWeCXQ/CBU0Wr71PtZ3oWWWssTQuDTCtE+vjE5EMzvu/BLDJi8fZjUDJpCuxCwg8r3GDV/SttXQ4s9aKYOc6zjRpo3nSZ5oPQfErJcRiaaF4ijlh4o9U+8rxn/tu//ncCzj0SSx78hs60d9moipAn5p4b/WgDpaGScXjxZOAWOLWc/0jaZz03lDmN8fOABzlU1XhBsksPK4FkUGvuzohwhaM3ZICaXHr/MTI22emF/pYq6TkCtnLcqbfX5lzg94rQ5oCKNPQUe2/89EESEfyufCcT67g0km4xNQomEls/ak7n60ASVB7Ise8eNg//BjofPCr6OnnhZlTfGDAgMBAAECggEBAIQ26ulV1iuzxn1Xhpd6MObOsT1ejh07flHeBJjXrRdNmHfyv0FGV8U6KxenF1SXnI20JkpiYT0nh+OAv8SD4Rnc+eob1m5gSGxF268R1oaV0+/AUlkl9NzHWlDz47lntXunbxw+ymU6hDKDzN6q258XPvVmhc8fRRRnsd5KVlJtAcGf93vHy+xUgvhdyda9bLt4sdU56UTgQ4yThRi46UgyRtMLTEG87Yq1s1V2RZEWNl2Fz8r1tZFuMla3E6WhoXbokwhE6y1yOyW8MwfiFqlv12BJGHnS40mj78YAhfnsnA9+VCOKYQ3yZnHIIt39aErvcOVTrwfngzxWL2X7XmECgYEA8pjqln1fJjD4sVu0WnEnTg1lChjYwatWOh9H/gOthmgHQVudOHeF/PLNvhr7NFSCJBQEmz2efxEID/NJo5of68vBUDVt7MIi1t40vk5YeHP2N8ZydVB3BlCNbwHf4oU7MMWqpRIAzahQwiNr15G6IUtq/qHOh31z/YCRzlfgslMCgYEA0fjWPwzRxEg29INQt8Pl7VAhRVFTggJdISikAmgUeq3dFQM1tdMvqAAP2ATIetBolaGG0kyUzlWFEb3ZSVCvbVzktSV3Ip8rhb6WSbfqYe6tZG/FHcfT8Yd+iRVeE1VugI3gUp2AUJR+3lj2isa0PPJ+TnQ0tqHy4a/j1+jGPhECgYBPms/3e8I6JP2mLSJcPx8XpJuQGaEew9syjUsxVgGdxgsDbk2D1uyXmRDcHbxqaoSd1BfC3RBiP7N2kG2MiqmI1T5k1HNyqi2Gdjm2bLzpIZwcpzituC6mWs5eK65MhU1r7qDVM7ghw+ZkHf1oKkB6ZmYAkhXULd1exM6TeBCaUwKBgQCGKKorqvM0qLeET4r5f4+fq702XxouTXhXwXHZn8rF/+Tskhp1TLR8cV2uNpAp+JN6V7SfFhNWKspVZao57/XGuL3hCEkws+bJE9dOztZRMIFVVRzrREylXF97E04CqGlsdjpITx43XkoZo1oTnZZ4ArC1TAaKUruvfATmZXKVIQKBgEsAbvEVmHjjQddEXNyExKovY6bp40+mn2PwgZHPyAoayLscwafCPL/8jwya0wLEAdagAvtgbYn/BUiGIzGGSvIeMqugL5sRI0wBCoaY9H33dfxpejuBx4uQD4waTRaCIObioellVaqpbncZiZmxanvlb5FrcAlvTw6SxZKT5fCg
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmIQN06r6ehH+8s11/Pw4E9sTfq4XOphTcRPbbTstoHN2CYwpAR52oOZSnH80ipZLyeB9bCpgA0FYGGP+VckQvLCaGe2xCrTSF3DHBV4YtLDawWRbiKNqZ0IFXJ3ST4E0m+O4IGmbCDitvHi6dxyQAtT6QBymoyxJJ+VaawLrRLoJkGWNrjaU5RFWKX7953ad2KQMnYX9CX6kFXjRhwBNdOiNE+jYm6MGodiSdaJcg8MWaBhmJPRxuKt81Byx+yx5DKHv37agaz3hYQMNGBVvQ2VfvOrWQuIBKGnVxvo5GrB8D8ULVxCU5c0gTQkYsBbneVj+fOQHIPReAn+YVZtgDwIDAQAB
+  notifyUrl: http://9ve6gs.natappfree.cc
+  returnUrl: http://localhost:8080/project_service/order.html
+
+mybatis-plus:
+  configuration:
+    #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID

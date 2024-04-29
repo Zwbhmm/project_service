@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dao.NbascMapper">
+  <resultMap id="BaseResultMap" type="com.project.model.Nbasc">
+    <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="dzsf" property="dzsf" jdbcType="VARCHAR" />
+  <result column="fm_img" property="fmImg" jdbcType="VARCHAR" />
+  <result column="bsdd" property="bsdd" jdbcType="VARCHAR" />
+  <result column="bs_time" property="bsTime" jdbcType="VARCHAR" />
+  <result column="fb_time" property="fbTime" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+     id,`dzsf`,`fm_img`,`bsdd`,`bs_time`,`fb_time`
+  </sql>
+  <select id="selectByExample" parameterType="com.project.model.NbascExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from `nbasc`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+     <if test="startRow >= 0 and pageRows > 0">
+  limit ${startRow},${pageRows}
+  </if>
+
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+     from `nbasc`
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+   delete from `nbasc`
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.project.model.NbascExample">
+    delete from `nbasc`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.project.model.Nbasc">
+      <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+  SELECT LAST_INSERT_ID()
+</selectKey>
+
+      insert into `nbasc` (`dzsf`,`fm_img`,`bsdd`,`bs_time`,`fb_time`)
+      values (	#{id,jdbcType=INTEGER},	#{dzsf,jdbcType=VARCHAR},	#{fmImg,jdbcType=VARCHAR},	#{bsdd,jdbcType=VARCHAR},	#{bsTime,jdbcType=VARCHAR},	#{fbTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.model.Nbasc">
+   <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+  SELECT LAST_INSERT_ID()
+</selectKey>
+
+    insert into `nbasc`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null" >
+	  `id`,
+ </if>
+<if test="dzsf != null" >
+	  `dzsf`,
+ </if>
+<if test="fmImg != null" >
+	  `fm_img`,
+ </if>
+<if test="bsdd != null" >
+	  `bsdd`,
+ </if>
+<if test="bsTime != null" >
+	  `bs_time`,
+ </if>
+<if test="fbTime != null" >
+	  `fb_time`
+ </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+         <if test="id != null" >
+	 #{id,jdbcType=INTEGER},
+	 </if>
+  <if test="dzsf != null" >
+	 #{dzsf,jdbcType=VARCHAR},
+	 </if>
+  <if test="fmImg != null" >
+	 #{fmImg,jdbcType=VARCHAR},
+	 </if>
+  <if test="bsdd != null" >
+	 #{bsdd,jdbcType=VARCHAR},
+	 </if>
+  <if test="bsTime != null" >
+	 #{bsTime,jdbcType=VARCHAR},
+	 </if>
+  <if test="fbTime != null" >
+	 #{fbTime,jdbcType=VARCHAR},
+	 </if>
+
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.project.model.NbascExample" resultType="java.lang.Long">
+    select count(*) from `nbasc`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update `nbasc`
+    <set>
+       <if test="record.dzsf != null" >
+	 `dzsf` = #{record.dzsf,jdbcType=VARCHAR},
+</if>
+ <if test="record.fmImg != null" >
+	 `fm_img` = #{record.fmImg,jdbcType=VARCHAR},
+</if>
+ <if test="record.bsdd != null" >
+	 `bsdd` = #{record.bsdd,jdbcType=VARCHAR},
+</if>
+ <if test="record.bsTime != null" >
+	 `bs_time` = #{record.bsTime,jdbcType=VARCHAR},
+</if>
+ <if test="record.fbTime != null" >
+	 `fb_time` = #{record.fbTime,jdbcType=VARCHAR}
+</if>
+
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update `nbasc`
+    set 
+    				`dzsf` = #{record.dzsf,jdbcType=VARCHAR},	`fm_img` = #{record.fmImg,jdbcType=VARCHAR},	`bsdd` = #{record.bsdd,jdbcType=VARCHAR},	`bs_time` = #{record.bsTime,jdbcType=VARCHAR},	`fb_time` = #{record.fbTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.model.Nbasc">
+    update `nbasc`
+    <set>
+       <if test="dzsf != null" >
+	 `dzsf` = #{dzsf,jdbcType=VARCHAR},
+</if>
+ <if test="fmImg != null" >
+	 `fm_img` = #{fmImg,jdbcType=VARCHAR},
+</if>
+ <if test="bsdd != null" >
+	 `bsdd` = #{bsdd,jdbcType=VARCHAR},
+</if>
+ <if test="bsTime != null" >
+	 `bs_time` = #{bsTime,jdbcType=VARCHAR},
+</if>
+ <if test="fbTime != null" >
+	 `fb_time` = #{fbTime,jdbcType=VARCHAR}
+</if>
+
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.model.Nbasc">
+    update `nbasc`
+    set 
+     			`dzsf` = #{dzsf,jdbcType=VARCHAR},	`fm_img` = #{fmImg,jdbcType=VARCHAR},	`bsdd` = #{bsdd,jdbcType=VARCHAR},	`bs_time` = #{bsTime,jdbcType=VARCHAR},	`fb_time` = #{fbTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

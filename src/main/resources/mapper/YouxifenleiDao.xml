@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.dao.YouxifenleiDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.project.model.YouxifenleiEntity" id="youxifenleiMap">
+        <result property="youximingcheng" column="youximingcheng"/>
+        <result property="youxichangshang" column="youxichangshang"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.project.model.vo.YouxifenleiVO" >
+		SELECT * FROM youxifenlei  youxifenlei         
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.project.model.vo.YouxifenleiVO" >
+		SELECT  youxifenlei.* FROM youxifenlei  youxifenlei
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.project.model.view.YouxifenleiView" >
+
+		SELECT  youxifenlei.* FROM youxifenlei  youxifenlei 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.project.model.view.YouxifenleiView" >
+		SELECT * FROM youxifenlei  youxifenlei <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	
+</mapper>

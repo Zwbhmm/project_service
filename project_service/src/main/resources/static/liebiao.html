@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+        <meta name="author" content="order by dede58.com"/>
+		<title>NBA周边</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+
+	<div id="app">
+
+		<!-- start header -->
+		<header>
+			<div class="top center">
+				<div class="left fl">
+
+				</div>
+				<div class="right fr">
+					<div class="gouwuche fr"><a href="gouwuche.html">购物车</a></div>
+					<div class="fr">
+						<ul>
+							<li v-if="user.id!=null">
+								<table>
+									<tr>
+										<td>
+											<a>欢迎您，<span>{{user.name}}</span></a>
+										</td>
+										<td>
+											<a @click="loginOut" style="cursor:pointer;color: red;">[退出]</a>
+										</td>
+									</tr>
+								</table>
+							</li>
+							<li v-if="user.id==null||user.id==''"><a href="login.html" target="_blank">登录</a></li>
+							<li v-if="user.id==null||user.id==''">|</li>
+							<li v-if="user.id==null||user.id==''"><a href="register.html" target="_blank" >注册</a></li>
+							<li>|</li>
+							<li><a href="self_info.html">个人中心</a></li>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</header>
+		<!--end header -->
+
+		<!-- start banner_x -->
+		<div class="banner_x center">
+
+			<div class="nav fl">
+				<ul>
+					<li><a href="liebiao.html?cid=1&currentPage=1">篮球鞋</a></li>
+					<li><a href="liebiao.html?cid=2&currentPage=1">篮球</a></li>
+					<li><a href="liebiao.html?cid=3&currentPage=1">球衣</a></li>
+					<li><a href="liebiao.html?cid=4&currentPage=1">篮球装备</a></li>
+					<li><a href="liebiao.html?cid=5&currentPage=1">篮球配件</a></li>
+					<li><a href="liebiao.html?cid=6&currentPage=1">篮球书籍</a></li>
+					<li><a href="liebiao.html?cid=7&currentPage=1">篮球周边商品</a></li>
+				</ul>
+			</div>
+			<div class="search fr">
+
+				<!-- 搜索框 -->
+				<form method="post">
+
+					<div class="text fl">
+						<!-- 这个是用户输入用户名的输入框 -->
+						<input type="text" v-model="pro.pName" name="name" id="searchName" autocomplete="off"
+							   class="shuru" placeholder="NIKE">
+					</div>
+
+					<div class="submit fl">
+						<!-- 搜索按钮 -->
+						<input type="button" class="sousuo" @click="getProsByNameLiebiao" value="搜索"/>
+					</div>
+
+					<div class="clear"></div>
+
+				</form>
+
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!-- end banner_x -->
+
+		<!--
+			这里有必要解释一下：
+				首先我们 proList 是后台传输过来的一个数据集合
+				这个数据集合是已经分页好的，并且指定了第几页（默认第一页），而且每一页有10条
+				所以在遍历的时候，proList永远只有10条数据（这10条数据是后台指定的每一页10条数据）
+				所以每一页根据index都分开0-4、5-9是可行的
+		 -->
+
+		<!-- start danpin -->
+		<div class="danpin center">
+
+			<div class="biaoti center">欢迎选购</div>
+
+			<div class="main center">
+				<div class="mingxing fl mb20" v-for="(pro,index) in proList" v-if="index<5" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'">
+
+					<div class="sub_mingxing">
+						<a @click="getProById(pro.id)" target="_blank">
+							<img v-bind:src="pro.pImg">
+						</a>
+					</div>
+					<div class="pinpai">
+						<a @click="getProById(pro.id)" target="_blank">
+							{{pro.pName}}
+						</a>
+					</div>
+					<div class="youhui">
+						{{pro.pSn}}
+					</div>
+					<div class="jiage">
+						{{pro.iPrice}}元
+					</div>
+				</div>
+
+				<div class="clear"></div>
+
+			</div>
+
+		</div>
+
+		<div class="danpin center">
+
+			<div class="main center">
+
+				<div class="mingxing fl mb20" v-for="(pro,index) in proList" v-if="index>4" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'">
+
+					<div class="sub_mingxing">
+						<a @click="getProById(pro.id)" target="_blank">
+							<img v-bind:src="pro.pImg">
+						</a>
+					</div>
+					<div class="pinpai">
+						<a @click="getProById(pro.id)" target="_blank">
+							{{pro.pName}}
+						</a>
+					</div>
+					<div class="youhui">
+						{{pro.pSn}}
+					</div>
+					<div class="jiage">
+						{{pro.iPrice}}元
+					</div>
+				</div>
+
+				<div class="clear"></div>
+
+			</div>
+
+		</div>
+
+		<br>
+		<br>
+		<br>
+
+		<!-- 分页组件 -->
+		<div class="page" style="text-align: center">
+
+			<a style="color: blue;cursor: pointer" @click="prePage">
+				上一页
+			</a>
+			&nbsp;&nbsp;
+
+			<font style="color: black;">第{{pro.currentPage}}页 / 共{{pro.totalPage}}页&nbsp;&nbsp;</font>
+
+			<a style="color: blue;cursor: pointer" @click="nextPage">
+				下一页
+			</a>
+
+		</div>
+
+
+
+	</div>
+
+	<!-- end danpin -->
+
+	<script src="js/vuejs-2.5.16.js"></script>
+	<script src="js/axios-0.18.0.js"></script>
+	<script src="js/liebiao.js"></script>
+
+	</body>
+</html>

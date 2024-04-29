@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dao.NbaCompeteMapper">
+  <resultMap id="BaseResultMap" type="com.project.model.NbaCompete">
+    <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="bs_name" property="bsName" jdbcType="VARCHAR" />
+  <result column="fm_img" property="fmImg" jdbcType="VARCHAR" />
+  <result column="score_intro" property="scoreIntro" jdbcType="VARCHAR" />
+  <result column="bs_intro" property="bsIntro" jdbcType="VARCHAR" />
+  <result column="qy_data" property="qyData" jdbcType="VARCHAR" />
+  <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+     id,`bs_name`,`fm_img`,`score_intro`,`bs_intro`,`qy_data`,`create_time`
+  </sql>
+  <select id="selectByExample" parameterType="com.project.model.NbaCompeteExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from `nba_compete`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+     <if test="startRow >= 0 and pageRows > 0">
+  limit ${startRow},${pageRows}
+  </if>
+
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+     from `nba_compete`
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+   delete from `nba_compete`
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.project.model.NbaCompeteExample">
+    delete from `nba_compete`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.project.model.NbaCompete">
+      <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+  SELECT LAST_INSERT_ID()
+</selectKey>
+
+      insert into `nba_compete` (`bs_name`,`fm_img`,`score_intro`,`bs_intro`,`qy_data`,`create_time`)
+      values (	#{id,jdbcType=INTEGER},	#{bsName,jdbcType=VARCHAR},	#{fmImg,jdbcType=VARCHAR},	#{scoreIntro,jdbcType=VARCHAR},	#{bsIntro,jdbcType=VARCHAR},	#{qyData,jdbcType=VARCHAR},	#{createTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.model.NbaCompete">
+   <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+  SELECT LAST_INSERT_ID()
+</selectKey>
+
+    insert into `nba_compete`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null" >
+	  `id`,
+ </if>
+<if test="bsName != null" >
+	  `bs_name`,
+ </if>
+<if test="fmImg != null" >
+	  `fm_img`,
+ </if>
+<if test="scoreIntro != null" >
+	  `score_intro`,
+ </if>
+<if test="bsIntro != null" >
+	  `bs_intro`,
+ </if>
+<if test="qyData != null" >
+	  `qy_data`,
+ </if>
+<if test="createTime != null" >
+	  `create_time`
+ </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+         <if test="id != null" >
+	 #{id,jdbcType=INTEGER},
+	 </if>
+  <if test="bsName != null" >
+	 #{bsName,jdbcType=VARCHAR},
+	 </if>
+  <if test="fmImg != null" >
+	 #{fmImg,jdbcType=VARCHAR},
+	 </if>
+  <if test="scoreIntro != null" >
+	 #{scoreIntro,jdbcType=VARCHAR},
+	 </if>
+  <if test="bsIntro != null" >
+	 #{bsIntro,jdbcType=VARCHAR},
+	 </if>
+  <if test="qyData != null" >
+	 #{qyData,jdbcType=VARCHAR},
+	 </if>
+  <if test="createTime != null" >
+	 #{createTime,jdbcType=VARCHAR},
+	 </if>
+
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.project.model.NbaCompeteExample" resultType="java.lang.Long">
+    select count(*) from `nba_compete`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update `nba_compete`
+    <set>
+       <if test="record.bsName != null" >
+	 `bs_name` = #{record.bsName,jdbcType=VARCHAR},
+</if>
+ <if test="record.fmImg != null" >
+	 `fm_img` = #{record.fmImg,jdbcType=VARCHAR},
+</if>
+ <if test="record.scoreIntro != null" >
+	 `score_intro` = #{record.scoreIntro,jdbcType=VARCHAR},
+</if>
+ <if test="record.bsIntro != null" >
+	 `bs_intro` = #{record.bsIntro,jdbcType=VARCHAR},
+</if>
+ <if test="record.qyData != null" >
+	 `qy_data` = #{record.qyData,jdbcType=VARCHAR},
+</if>
+ <if test="record.createTime != null" >
+	 `create_time` = #{record.createTime,jdbcType=VARCHAR}
+</if>
+
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update `nba_compete`
+    set 
+    				`bs_name` = #{record.bsName,jdbcType=VARCHAR},	`fm_img` = #{record.fmImg,jdbcType=VARCHAR},	`score_intro` = #{record.scoreIntro,jdbcType=VARCHAR},	`bs_intro` = #{record.bsIntro,jdbcType=VARCHAR},	`qy_data` = #{record.qyData,jdbcType=VARCHAR},	`create_time` = #{record.createTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.model.NbaCompete">
+    update `nba_compete`
+    <set>
+       <if test="bsName != null" >
+	 `bs_name` = #{bsName,jdbcType=VARCHAR},
+</if>
+ <if test="fmImg != null" >
+	 `fm_img` = #{fmImg,jdbcType=VARCHAR},
+</if>
+ <if test="scoreIntro != null" >
+	 `score_intro` = #{scoreIntro,jdbcType=VARCHAR},
+</if>
+ <if test="bsIntro != null" >
+	 `bs_intro` = #{bsIntro,jdbcType=VARCHAR},
+</if>
+ <if test="qyData != null" >
+	 `qy_data` = #{qyData,jdbcType=VARCHAR},
+</if>
+ <if test="createTime != null" >
+	 `create_time` = #{createTime,jdbcType=VARCHAR}
+</if>
+
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.model.NbaCompete">
+    update `nba_compete`
+    set 
+     			`bs_name` = #{bsName,jdbcType=VARCHAR},	`fm_img` = #{fmImg,jdbcType=VARCHAR},	`score_intro` = #{scoreIntro,jdbcType=VARCHAR},	`bs_intro` = #{bsIntro,jdbcType=VARCHAR},	`qy_data` = #{qyData,jdbcType=VARCHAR},	`create_time` = #{createTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>
